@@ -1,0 +1,59 @@
+1.如何确认现有表已使用的默认引擎？
+答：show  create  table  表名;  
+
+2.如何修改已建表的存储引擎？
+答：alter  table 表名  engines=引擎名;
+
+.myisam存储引擎的特点？
+答：支持表级锁，但不支持事务、事务回滚、外键
+    适合写入量大的
+
+3.InnoDB存储引擎的特点？
+答：支持行级锁，支持事务、事务回滚、外键
+    自动生成日志文件
+    适合访问量多，并发量大的
+
+4.数据导入的方式有哪些？
+答：将数据文件存放到/var/lig/mysql-files/
+    load data infile  "目录名/文件名"
+     into  table  表名;
+
+
+5.如何将/etc/passwd 导入test库list表并给每条记录加编号？
+答：将/etc/passwd复制拷贝一份到/var/lig/mydql-files/目录下
+     load  data  infile  "/var/lig/mysql-files/passwd"
+       into  table  test.list;
+   alter  table  list  add  num int(4) auto_increment primary key first;
+6.数据导出的方式有哪些？
+答：select  字段名或者*  from  表名  into  outfile  "目录名/文件名";
+
+
+7.将test库list表中uid小于100的前10条记录导出，存为/myload/list2.txt文件
+答：select  uid  from  list  into  outfile  "/myload/list2.txt" 
+     where  uid<100  limit  10;
+
+8.如何给单个字段或多个字段赋值？
+答：update  表名  set  字段名=字段值,字段N=字段N值;
+
+9.如何给指定单个字段或多个字段赋值？
+答：update  表名  set  字段名=字段值,字段N=字段N值  where  条件;
+
+10.如何更新表内的所有记录？
+答：update  表名  set  字段名=字段值,字段N=字段N值;
+
+11.删除符合条件的记录或者删除所有记录的方式是？
+答：delete  from  表名;
+    delete  from  表名  where  条件；
+ 
+12.字段类型，字符类型以及逻辑匹配和范围内匹配有哪些类型？以及各自的含义是什么？
+答：范围匹配：in(在...里..)、not in(不在..里)、between(在...之间)、discints(去重显示)
+    字符类型：=(等于)、!=(不等于)、>(大于)、>=(大于等于)、<(小于)、<=(小于等于)、
+              is null(匹配空)、is not null(非空)
+    逻辑匹配：or(或者)、and(与)、!(非)、()提高优先级
+    字段类型：
+
+
+
+
+
+
