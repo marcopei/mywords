@@ -1,0 +1,46 @@
+1.给予gaidc.sh执行权限的命令为？
+答：chmod  +x  gaidc.sh
+2.请通过awk命令输出gzidc.com的com
+答：awk  -F   "gzidc.com"
+3.假设有四个2T硬盘，请问做了raid5后的容量为？
+答：6T
+4.在当前目录下创建gzidc和gzidc下的test目录
+答：mkdir   -p   ./gzidc/test
+5.列出gzidc.txt文档中左后8行内容
+答：tail  -8  gzidc.txt
+6.init0-6分别代表什么？
+答：
+init  0    关机
+init  1    单用户命令模式
+init  2    多用户无网络模式
+init  3    多用户带网络模式
+init  4    未定义，预留
+init  5    图形模式
+init  6    重启
+7.1.计划任务每天 0 点 30 分执行查找并删除/opt/bjca3/logs 目录下后缀是 log 的三天前的文件？
+ 答：30 0 * * *   /usr/bin/find  /opt/bjca3/logs  -type  -f  -name  "*.log"  -mtime  +3  -exec  /usr/bin/rm -rf {}  \;
+
+8.提示用户输入用户名和密码，脚本自动创建相应的用户名和配置密码，如果用户不输入用户名，则提示必须输入用户名并退出脚本，如果用户不输入密码，则统一使用默认的123456作为默认密码
+
+read  -p "请输入用户名："  name
+read  -p  "请输入密码："   passwd
+pass=${passwd:-123456}
+
+if [ -z  $name ];then
+    echo "用户不能为空"
+     exit
+fi
+
+useradd  $name  &> /dev/null 
+if  [ $? -eq 0 ];then
+     echo "用户创建成功"
+else
+     echo "已有此用户"
+fi
+
+echo  $passwd  |  passwd  --stdin  $name  2&> /dev/null
+if  [ $? -eq  0 ];then
+       echo  "密码更新成功"
+else
+	echo "密码为$pass"
+fi
